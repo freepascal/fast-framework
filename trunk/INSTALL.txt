@@ -1,0 +1,27 @@
+
+
+
+-1- cd to where you want to put FFW
+-2- svn co http://svn.metacites.net/FFW FFW
+-3- after that, you need some librairies :
+	PHP librairies needed :
+		- Spyc
+		- Smarty
+		- adodb
+		- phpMailer ???
+	JavaScript librairies needed :
+		- Jquery
+		- FCKeditor
+	
+	Download them and link them all
+-4- cd to your www directory
+-5- mv FFW/www_index.php to WWW/index.php
+-6- mkdir the directory where you will put your modules (preferably out of WWW)
+-7- mv FFW/www_config.yml to somewhere config.yml and write into it
+-8- write a WWW/.htaccess so that using mod_rewrite all that goes to WWW is rewriten to WWW/index.php
+	(look into FFW/www_htaccess if you want to)
+
+should be all
+
+
+© 2008 - Stéphane Le Solliec - stephane@metacites.net - skype:stef_ls
