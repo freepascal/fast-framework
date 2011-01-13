@@ -48,24 +48,24 @@ if ($action == 'login') {
 	if (strpos($_POST['login'],'@')) {
 		$get_user = $db->GetRow("select * from $userTable where $emailUField='{$_POST['login']}' order by $idUField asc");
 		if (!$get_user)
-			shit('Cet email est inconnu : <strong>'.$_POST['login'].'</strong>','Email inconnu');
+			stop('Cet email est inconnu : <strong>'.$_POST['login'].'</strong>','Email inconnu');
 	} else {
 		$get_user = $db->GetRow("select * from $userTable where $loginUField='{$_POST['login']}' order by $idUField asc");
 		if (!$get_user)
-			shit('Ce code d\'accès est inconnu : <strong>'.$_POST['login'].'</strong>','Code d\'accès inconnu');
+			stop('Ce code d\'accès est inconnu : <strong>'.$_POST['login'].'</strong>','Code d\'accès inconnu');
 	}
 
 	if (!$get_user['is_active'])
-		shit("<p>Votre compte n'est pas actif. Vous ne pouvez pas vous connecter à ce site.</p>
+		stop("<p>Votre compte n'est pas actif. Vous ne pouvez pas vous connecter à ce site.</p>
 			<p>Contactez un administrateur du site si vous voulez changer le statut de votre compte.</p>
 			","Compte inactif");
 
 	if ($get_user[$pwdUField] == '')
-		shit("<p>Votre mot de passe n'a jamais été généré. Vous ne pourrez pas vous connecter au site tant que
+		stop("<p>Votre mot de passe n'a jamais été généré. Vous ne pourrez pas vous connecter au site tant que
 			vous n'aurez pas <a href='login/forgot'>demandé la génération de votre mot de passe</a>.</p>","Mot de passe à générer");
 
 	if ($get_user[$pwdUField] != pwd_hash($_POST['pwd']))
-		shit("<p>Le mot de passe que vous avez saisi n'est pas le bon.</p>
+		stop("<p>Le mot de passe que vous avez saisi n'est pas le bon.</p>
 			<p>Avez-vous <a href='login/forgot'>oublié votre mot de passe</a> ?</p>","Mauvais mot de passe");
 
 	$user = $get_user + $user;
@@ -121,16 +121,16 @@ if ($action == 'forgot') {
 
 if ($action == 'send_new') {
 	if (!$_POST['login'])
-		shit('Vous devez donner votre code d\'accès ou votre email.',"Code vide");
+		stop('Vous devez donner votre code d\'accès ou votre email.',"Code vide");
 
 	if (strpos(' '.$_POST['login'],'@')) {
 		$get_lost = $db->GetRow("select * from $userTable where $emailUField='{$_POST['login']}' order by id asc");
 		if (!$get_lost)
-			shit("Aucun utilisateur n'ayant cet email : <strong>{$_POST['login']}</strong> n'existe dans notre base.","Email inconnu");
+			stop("Aucun utilisateur n'ayant cet email : <strong>{$_POST['login']}</strong> n'existe dans notre base.","Email inconnu");
 	} else {
 		$get_lost = $db->GetRow("select * from $userTable where $loginUField='{$_POST['login']}' order by id asc");
 		if (!$get_lost)
-			shit("Aucun utilisateur n'ayant ce code d'accès : <strong>{$_POST['login']}</strong> n'existe dans notre base.","Code d'accès inconnu");
+			stop("Aucun utilisateur n'ayant ce code d'accès : <strong>{$_POST['login']}</strong> n'existe dans notre base.","Code d'accès inconnu");
 	}
 	
 	// change pwd and send new one

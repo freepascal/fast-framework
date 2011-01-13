@@ -482,7 +482,7 @@ function view_field($field_name,$view_field = array(),$oo = NULL) {
 					global $db,$dbs;
 					$fk_columns = '';
 					if (!is_array($dbs[$foreign_table]))
-						shit("Foreign table <strong>$foreign_table</strong> not found for field <strong>$field_name</strong>.",'Foreign key not found.',500);
+						stop("Foreign table <strong>$foreign_table</strong> not found for field <strong>$field_name</strong>.",'Foreign key not found.',500);
 					
 					foreach ($dbs[$foreign_table] as $foreign_field_name => $foreign_field) {
 						if ($fk_columns=='') {

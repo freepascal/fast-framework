@@ -36,12 +36,12 @@ class db {
 		// we connect to mysql server
 		$this->cnx = @mysql_connect($host, $user, $pwd);
 		if (!$this->cnx)
-			shit(mysql_error(),"Echec de la connexion MySQL",500);
+			stop(mysql_error(),"Echec de la connexion MySQL",500);
 
 		// we select the database
 		$this->database = mysql_select_db($database_name, $this->cnx);
 		if (!$this->database)
-			shit(mysql_error(),"Echec de la selection de la base $database_name",500);
+			stop(mysql_error(),"Echec de la selection de la base $database_name",500);
 		
 		// we load the structure of the database
 		if ($load_structure) {
@@ -407,7 +407,7 @@ class db {
 			$sql = rtrim($sql,',');
 
 			if (!$where)
-				shit("You must specify a where clause when using db::AutoExecute() for update","Where clause needed");
+				stop("You must specify a where clause when using db::AutoExecute() for update","Where clause needed");
 
 			$sql .= "\n		where $where";
 			$this->execute($sql,$arrFields);

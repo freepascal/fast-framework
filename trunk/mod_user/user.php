@@ -1,7 +1,7 @@
 <?php
 
 if ((!$user['id']) and (!in_array($action,array('create','default','list','view','none','insert'))))
-	shit("Il faut être connecté au site pour accéder à cette page.","Accès refusé");
+	stop("Il faut être connecté au site pour accéder à cette page.","Accès refusé");
 
 $mod = load_mod($module,$action);
 // echo '<pre>';var_dump($mod);exit;
@@ -90,7 +90,7 @@ if ($action == 'list') {
 if ($action == 'edit') {
 	$page['title']   = 'Editer vos infos';
 	
-	if (!$user[$idUField])	shit("Il faut être connecté pour accéder à cette page.","Déconnecté");
+	if (!$user[$idUField])	stop("Il faut être connecté pour accéder à cette page.","Déconnecté");
 	
 	$form = $mod['actions']['edit'];
 	$oo = $user;

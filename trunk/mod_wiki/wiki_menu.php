@@ -1,11 +1,11 @@
 <?php
 
 if (!$user['is_admin'])
-	shit('Il faut être administrateur pour accèder à cette page. :-|',401);
+	stop('Il faut être administrateur pour accèder à cette page. :-|',401);
 
 $_GET['id'] = intval($_GET['id']);
 if (!$_GET['id'])
-	shit("L'identifiant de la page à ré-ordonner n'est pas spécifié.","Page non spécifiée.");
+	stop("L'identifiant de la page à ré-ordonner n'est pas spécifié.","Page non spécifiée.");
 	
 if ($_GET['do'] == 'up')
 	$db->execute("-- on monte la page {$_GET['id']} du wiki {$wiki['id']}

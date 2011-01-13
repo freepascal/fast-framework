@@ -49,7 +49,7 @@ function openid_login_failed_create_account() {
 			// check if email not already used
 			$check_email = $db->getone('select id from users where lower(email)="'.strtolower($email).'"');
 			if ($check_email)
-				shit('Cette adresse email appartient déjà à un utilisateur, sans doute vous. Connectez-vous d\'abord de façon classique à cette plateforme, puis allez dans les informations de votre compte pour renseigner votre openID.',"Renseignez votre openID d'abord.");
+				stop('Cette adresse email appartient déjà à un utilisateur, sans doute vous. Connectez-vous d\'abord de façon classique à cette plateforme, puis allez dans les informations de votre compte pour renseigner votre openID.',"Renseignez votre openID d'abord.");
 					
 			$new['email'] = $email;
 		}
@@ -114,11 +114,11 @@ $response = $consumer->complete($return_to);
 
 // This means the authentication was cancelled.
 if ($response->status == Auth_OpenID_CANCEL)
-	shit('Vous avez annulé l\'authentification via openID.',"OpenID : vérification annulée.");
+	stop('Vous avez annulé l\'authentification via openID.',"OpenID : vérification annulée.");
 
 // Authentication failed; display the error message.
 if ($response->status == Auth_OpenID_FAILURE)
-	shit("Echec de l'authentification :<br/>" . $response->message,"OpenID echec");
+	stop("Echec de l'authentification :<br/>" . $response->message,"OpenID echec");
 
 if ($response->status == Auth_OpenID_SUCCESS) {
 	// This means the authentication succeeded; extract the
@@ -187,7 +187,7 @@ if ($response->status == Auth_OpenID_SUCCESS) {
 			eval($conf['openid_login_fail']);
 		} else {
 			// user with that openID not in users table
-			shit("Aucun compte ayant cette openID : <strong>$openid</strong>n'a été trouvé.<br/>Zutalors !!!","openID non trouvée");
+			stop("Aucun compte ayant cette openID : <strong>$openid</strong>n'a été trouvé.<br/>Zutalors !!!","openID non trouvée");
 		}
 	}
 

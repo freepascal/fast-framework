@@ -12,7 +12,7 @@ $sql = "
 
 $get_page = $db->getrow($sql);
 if (!$get_page)
-	shit('Cette page n\'existe pas',404);
+	stop('Cette page n\'existe pas',404);
 
 foreach ($get_page as $k => $v)
 	$page[$k] = $v;

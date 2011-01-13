@@ -68,7 +68,7 @@ if ($action == 'import') {
 if ($action == 'import_csv') {
 	$page['title'] = "Import de fichier CSV - 2/3";
 
-	if (!$_FILES['csv_file']) shit("Aucun fichier n'a été envoyé.");
+	if (!$_FILES['csv_file']) stop("Aucun fichier n'a été envoyé.");
 	
 	$uploaded = $_FILES['csv_file'];
 	$file_array = file($uploaded['tmp_name']);

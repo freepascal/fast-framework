@@ -23,11 +23,11 @@ if ($wiki[$_SERVER["HTTP_HOST"]]) {
 if (in_array($action,array('create','edit','insert','update','delete'))) {
 	if (!$user[$idUField]) {
 		$page['title'] = "Connexion nécessaire";
-		shit("Il faut être connecté au site pour pouvoir faire ceci.");
+		stop("Il faut être connecté au site pour pouvoir faire ceci.");
 	}
 	if (!$user['is_writer']) {
 		$page['title'] = "Il faut être auteur";
-		shit("Vous devez être auteur pour faire ceci.");
+		stop("Vous devez être auteur pour faire ceci.");
 	}
 }
 

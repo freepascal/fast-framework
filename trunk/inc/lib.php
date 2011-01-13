@@ -152,7 +152,7 @@ function remove_accents($string) {
 }
 
 // this function gives an error msg and exits
-function shit($txt,$title='',$http_code=0) {
+function stop($txt,$title='',$http_code=0) {
 	global $page,$smarty,$chrono,$conf,$mod,$db,$user;
 	
 	$http_codes = array(
@@ -243,7 +243,7 @@ function get_col_types($table) {
 function kmkdir($dir) {
 	if (file_exists($dir)) return(true);
 	$parent_dir = substr($dir,0,strrpos($dir,'/'));
-	if ($dir == $parent_dir) shit('kmkdir() error !!! zut.');
+	if ($dir == $parent_dir) stop('kmkdir() error !!! zut.');
 	if (!file_exists($parent_dir)) kmkdir($parent_dir);
 	mkdir($dir);
 	@chmod($dir,0777);

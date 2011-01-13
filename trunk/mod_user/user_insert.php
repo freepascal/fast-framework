@@ -13,29 +13,29 @@ if (is_array($mod['actions']['insert']['fields']))
 if ($conf['userTable']['loginUField']!='none') {
 	$oo[$loginUField] = trim($oo[$loginUField]);
 	if (!$oo[$loginUField])
-		shit('Vous devez donner un code d\'accès (utilisez un pseudo si vous voulez).',"Code d'accès manquant");
+		stop('Vous devez donner un code d\'accès (utilisez un pseudo si vous voulez).',"Code d'accès manquant");
 	if (!preg_match("/^[a-zA-Z0-9][ a-zA-Z0-9_\-]+$/i", $oo[$loginUField]))
-		shit('Ce nom ou pseudo n\'est pas valide. N\'utilisez que des chiffres, des lettres sans accents et - ou _. Commencez par une lettre.',"Code d'accès invalide");
+		stop('Ce nom ou pseudo n\'est pas valide. N\'utilisez que des chiffres, des lettres sans accents et - ou _. Commencez par une lettre.',"Code d'accès invalide");
 }
 
 // check if email is valid
 $oo[$emailUField] = trim($oo[$emailUField]);
 if (!$oo[$emailUField])
-	shit('Vous devez obligatoirement donner une adresse email pour vous inscrire, puisque votre nouveau mot de passe doit vous être envoyé par email.',"Adresse email manquante");
+	stop('Vous devez obligatoirement donner une adresse email pour vous inscrire, puisque votre nouveau mot de passe doit vous être envoyé par email.',"Adresse email manquante");
 if (!preg_match("/^[-%&._a-zA-Z0-9]+@[-a-z0-9]+(\.[-a-z0-9]+)*\.[-a-z0-9]{2,6}$/i", $oo[$emailUField]))
-	shit('L\'email donnée n\'est pas valide.',"Email invalide");
+	stop('L\'email donnée n\'est pas valide.',"Email invalide");
 
 // check if email not already used
 $check_email = $db->getone("select $idUField from $userTable where lower($emailUField)='".strtolower($oo[$emailUField])."'");
 if ($check_email)
-	shit("<p>Cette adresse email appartient déjà à un utilisateur.</p>
+	stop("<p>Cette adresse email appartient déjà à un utilisateur.</p>
 			<p>Si c'est vous, alors c'est que vous avez déjà un compte sur ce site. Vous avez peut-être <a href='login/forgot'>oublié votre mot de passe</a>.</p>","Email déjà utilisée");
 
 // check if login not already used
 if ($loginUField != 'none') {
 	$check_name = $db->getone("select $idUField from $userTable where lower($loginUField) ='".strtolower($oo[$loginUField])."'");
 	if ($check_name)
-		shit("<p>Ce code d'accès est déjà utilisé. Il vous faut en choisir un autre.</p>","Code d'accès déjà pris");
+		stop("<p>Ce code d'accès est déjà utilisé. Il vous faut en choisir un autre.</p>","Code d'accès déjà pris");
 }
 
 // add user to database
