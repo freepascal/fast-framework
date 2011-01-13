@@ -17,7 +17,7 @@ if (file_exists($conf['mods']."mod_blog/blog_$action.php")) {
 	include($conf['ffw']."mod_blog/blog_$action.php");
 } else {
 	$page['title'] = 'Action non trouvée.';
-	shit("Action non trouvée : $action");
+	stop("Action non trouvée : $action");
 }
 
 // echo $module.'/'.$action.'/'.$params;

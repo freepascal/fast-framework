@@ -10,7 +10,7 @@ if (!$action) {
 if (!$user['is_admin']) {
 	if (!in_array($action,array('insert','delete'))) {
 		$page['title'] = "Interdit";
-		shit("Vous n'avez pas le droit d'effectuer cette action.");
+		stop("Vous n'avez pas le droit d'effectuer cette action.");
 	}
 }
 
@@ -71,7 +71,7 @@ if ($action == 'delete') {
 		$user_id = $db->getone("select user_id from posts where id=$post_id");
 		if ($user_id != $user['id']) {
 			$page['title'] = "Interdit";
-			shit("Vous n'avez pas le droit de supprimer des commentaires sur cet article.");
+			stop("Vous n'avez pas le droit de supprimer des commentaires sur cet article.");
 		}
 	}
 	// we delete the comment

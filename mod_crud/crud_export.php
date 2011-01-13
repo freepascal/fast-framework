@@ -51,7 +51,7 @@ if ($action == 'export_csv') {
 	}
 	
 	if (!is_array($_GET['field_to_export']))
-		shit("Vous n'avez pas sélectionné de champs à exporter !!!","Erreur: aucun champ à exporter !!!");
+		stop("Vous n'avez pas sélectionné de champs à exporter !!!","Erreur: aucun champ à exporter !!!");
 
 	// on va chercher toutes les lignes nécessaires
 	$sql = " -- - crud/export_csv get lines of table {$mod['table']}
@@ -73,7 +73,7 @@ if ($action == 'export_csv') {
 				foreach ($oos as &$oo)
 					$oo[$key] = eval($val['filter']); 
 	
-	if (!$oos) shit("Aucun objet trouvé à exporter.");
+	if (!$oos) stop("Aucun objet trouvé à exporter.");
 	
 	header("Content-Type: application/octet-stream");
 	header("Content-Disposition: attachment; filename=\"export_{$mod['table']}_".date('Ymd_Hi').".csv\";");

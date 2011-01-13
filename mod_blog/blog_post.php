@@ -23,7 +23,7 @@ if (intval($action)) {
 
 	if (!$oo) {
 		$page['title'] = "Article non trouvé";
-		shit("Aucun article trouvé ayant pour ID <strong>$params</strong>");
+		stop("Aucun article trouvé ayant pour ID <strong>$params</strong>");
 	}
 	
 	// we look for the name of author

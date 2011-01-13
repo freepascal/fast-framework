@@ -6,7 +6,7 @@
 
 foreach ($_POST as $key => $val)
 	if (strpos(' '.$val,'<'))
-		shit('Le caractère &lt; est interdit !!!');
+		stop('Le caractère &lt; est interdit !!!');
 
 // you cannot change the login
 // you cannot change the email

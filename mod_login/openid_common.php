@@ -42,7 +42,7 @@ function &getStore() {
 	$store_path = "/tmp/_php_consumer_test";
 
 	if (!file_exists($store_path) && !mkdir($store_path))
-		shit("Could not create the FileStore directory '$store_path'. Please check the effective permissions.","openID filestore error");
+		stop("Could not create the FileStore directory '$store_path'. Please check the effective permissions.","openID filestore error");
 
 	return new Auth_OpenID_FileStore($store_path);
 }

@@ -3,7 +3,7 @@
 session_start();
 
 if (empty($_GET['openid_identifier']))
-	shit("Expected an OpenID URL.");
+	stop("Expected an OpenID URL.");
 
 $openid = $_GET['openid_identifier'];
 $consumer = getConsumer();
@@ -13,7 +13,7 @@ $auth_request = $consumer->begin($openid);
 
 // No auth request means we can't begin OpenID.
 if (!$auth_request)
-	shit("Erreur d'authentification : vous n'avez pas entré une openID valide.","Error: openID not valid");
+	stop("Erreur d'authentification : vous n'avez pas entré une openID valide.","Error: openID not valid");
 
 $sreg_request = Auth_OpenID_SRegRequest::build(
 		array(),			// Required
@@ -41,7 +41,7 @@ if ($auth_request->shouldSendRedirect()) {
 
 	// If the redirect URL can't be built, display an error message.
 	if (Auth_OpenID::isFailure($redirect_url)) {
-		shit("Impossible de rediriger vers le serveur : " . $redirect_url->message,"openID login error");
+		stop("Impossible de rediriger vers le serveur : " . $redirect_url->message,"openID login error");
 	} else {
 		// Send redirect.
 		header("Location: ".$redirect_url);
@@ -54,7 +54,7 @@ if ($auth_request->shouldSendRedirect()) {
 	// Display an error if the form markup couldn't be generated;
 	// otherwise, render the HTML.
 	if (Auth_OpenID::isFailure($form_html)) {
-		shit("Impossible de rediriger vers le serveur : " . $form_html->message,"openID login error");
+		stop("Impossible de rediriger vers le serveur : " . $form_html->message,"openID login error");
 	} else {
 		$page_contents = array(
 			"<html><head><title>",

@@ -92,13 +92,13 @@ if (file_exists($conf['mods']."mod_$module/{$module}_functions.php"))
 if ($mod['access']) {
 	foreach ($mod['access'] as $access_rule => $access)
 		if (!eval($access['condition']))
-			shit($access['message'],"Accès refusé");
+			stop($access['message'],"Accès refusé");
 }
 // check access on action
 if ($mod['actions'][$action]['access']) {
 	foreach ($mod['actions'][$action]['access'] as $access_rule => $access)
 		if (!eval($access['condition']))
-			shit($access['message'],"Accès refusé");
+			stop($access['message'],"Accès refusé");
 }
 
 
@@ -194,7 +194,7 @@ if ($action == 'edit') {
 	
 	if (!$oo) {
 		$page['title'] = "$object_name non trouvé(e)";
-		shit("Aucun(e) $object_name trouvé(e).");
+		stop("Aucun(e) $object_name trouvé(e).");
 	}
 
 	$page['title'] = "Editer ".$mod['object_det'].$mod['object'].' : '.$oo[$mod['actions']['edit']['title']];
@@ -261,7 +261,7 @@ if ($action == 'view') {
 
 	if (!$oo) {
 		$page['title'] = $mod['object']." non trouvé(e)";
-		shit("Aucun".($mod['object_genre']=='f'?'e':'')." {$mod['object']} trouvé".($mod['object_genre']=='f'?'e':'').".");
+		stop("Aucun".($mod['object_genre']=='f'?'e':'')." {$mod['object']} trouvé".($mod['object_genre']=='f'?'e':'').".");
 	}
 
 	if (file_exists($conf['mods']."mod_$module/{$module}_$action.php")) {
@@ -302,11 +302,11 @@ if ($action == 'delete') {
 		$id = intval($id);
 	}
 	
-	if (!$user['is_admin']) shit("Vous devez être administrateur pour supprimer cet élément.");
+	if (!$user['is_admin']) stop("Vous devez être administrateur pour supprimer cet élément.");
 	
 	if (xss_armor($id) != $xss_armor) {
 		$page['title'] = "Mauvais code de confirmation";
-		shit("XSS armor hit!");
+		stop("XSS armor hit!");
 	}
 	
 	$db->Execute("delete from {$mod['table']} where id=".$id);

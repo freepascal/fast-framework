@@ -48,9 +48,9 @@ class file_upload {
 						$this->filename = strrev($fname);
 					
 					if (in_array($fext,array('php','php3','php4','php5')))
-						shit("Les fichiers de type <strong>$this->ext</strong> ne sont pas autorisés au téléchargement","Type de fichier interdit");
+						stop("Les fichiers de type <strong>$this->ext</strong> ne sont pas autorisés au téléchargement","Type de fichier interdit");
 					
-					// shit(sprintf('Mauvais type de fichier : <strong>%s</strong> (%s)',$_FILES[$this->fieldname]['type'],$_FILES[$this->fieldname]['name']));
+					// stop(sprintf('Mauvais type de fichier : <strong>%s</strong> (%s)',$_FILES[$this->fieldname]['type'],$_FILES[$this->fieldname]['name']));
 				break;
 			}
 		
@@ -58,9 +58,9 @@ class file_upload {
 //				$size = GetImageSize ($_FILES[$this->fieldname]['tmp_name']); 
 	
 			// we verify the filesize
-	//		if (!$_FILES[$this->fieldname]['size']) shit('Cette image n\'a pas de taille !!!');
+	//		if (!$_FILES[$this->fieldname]['size'] stop('Cette image n\'a pas de taille !!!');
 	
-	//		if ($_FILES[$this->fieldname]['size'] > (80*1024)) shit(sprintf('Image trop lourde : <strong>%s ko</strong>',intval($_FILES[$this->fieldname]['size']/1024)));
+	//		if ($_FILES[$this->fieldname]['size'] > (80*1024)) stop(sprintf('Image trop lourde : <strong>%s ko</strong>',intval($_FILES[$this->fieldname]['size']/1024)));
 
 			return true;
 		}
@@ -92,7 +92,7 @@ class file_upload {
 		$this->set_fullname();
 		
 		if (!copy($_FILES[$this->fieldname]['tmp_name'],$this->fullname))
-			shit('Merde, erreur dans la copie du fichier :-(',500);
+			stop('Merde, erreur dans la copie du fichier :-(',500);
 		@chmod($this->fullname,0777);
 		
 		return true;
@@ -149,7 +149,7 @@ class file_upload {
 	// en fait, cette fonction doit vraiment être surclassée
 	function delete() {
 		if ($_POST[$this->fieldname.'_del'])
-			shit("Il faut supprimer le fichier");
+			stop("Il faut supprimer le fichier");
 	}
 	
 	

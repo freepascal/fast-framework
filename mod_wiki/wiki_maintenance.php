@@ -1,7 +1,7 @@
 <?php
 
 if (!$user['is_admin'])
-	shit('Il faut être administrateur pour accèder à cette page. :-|',401);
+	stop('Il faut être administrateur pour accèder à cette page. :-|',401);
 
 $nb_pages = $db->getone('select count(*) from pages_archives');
 
