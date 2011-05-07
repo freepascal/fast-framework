@@ -125,8 +125,10 @@ function mois($nb) {
 }
 
 function xss_armor($txt) {
-	global $user;
-	return substr(md5('salt887'.$txt.$user['pwd'].date('Ym')),6,8);
+	global $user,$conf;
+	if ($conf['salt'])	$salt = $conf['salt'];
+	else				$salt = 'salt887';
+	return substr(md5($salt.$txt.$user['pwd'].date('Ym')),6,8);
 }
 
 
@@ -599,6 +601,19 @@ function sort_2Darray($array, $colname) {
     return usort($array,create_function('$a,$b',$function_code));
 }
 
-
+// une fonction pour remplacer dans un string tous les :toto: par $arr['toto']
+// attention, a ne pas utiliser cette fonction pour preparer une reqête SQL,
+// car il n'y a pas les appels à mysql_escape...
+function str_arr_replace($string, $arr) {
+	if (is_array($arr)) {
+		foreach ($arr as $key => $val) {
+			$string = str_replace(":$key:",$val,$string);
+		}
+	} else {
+		// if we have something else, we replace all ? by $arr
+		$string = str_replace("?", $arr, $string);
+	}
+	return $string;
+}
 
 function pwd_hash($pwd) { return sha1($pwd); }
