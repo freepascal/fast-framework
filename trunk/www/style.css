@@ -81,6 +81,7 @@ input,textarea,select {
 	margin:1px 0;
 	font-size:11px;
 }
+input[type=image] {background: none; border:0;}
 textarea {width:360px;height:150px;}
 pre {
 	border: 1px dashed #999;
@@ -209,6 +210,16 @@ div.pagination a {
 
 #footer { padding:3px;text-align:center;color:#BBB;}
 #footer a { color:#BBB;}
+
+
+fieldset {
+	margin-top: 20px;
+	border: 2px solid #333;
+}
+
+fieldset legend {
+	font-weight: bold;
+}
 
 
 .field {
