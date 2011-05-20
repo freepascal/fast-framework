@@ -3,7 +3,7 @@
 // echo $module.'/'.$action.'<hr />';
 
 
-function deal_with_fields($oo) {
+function deal_with_fields(&$oo) {
 	global $mod,$dbs;
 	
 	// we loop on all fields
@@ -147,7 +147,7 @@ if ($action == 'create') {
 if ($action == 'insert') {
 	$oo = clean_magic_quotes($_POST);
 	
-	deal_with_fields(&$oo);
+	deal_with_fields($oo);
 	
 	$oo['created_at']	= date('Y-m-d H:i:s');
 
@@ -230,7 +230,7 @@ if ($action == 'update') {
 
 	$oo['updated_at']	= date('Y-m-d H:i:s');
 
-	deal_with_fields(&$oo);
+	deal_with_fields($oo);
 
 	// pseudo fields
 	if (is_array($mod['actions']['update']['fields']))
