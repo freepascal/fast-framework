@@ -31,7 +31,7 @@ $smarty = new Smarty;
 $smarty->template_dir	= $conf['ffw'].'views';
 $smarty->compile_dir	= $conf['views_c'];
 
-$smarty->assign_by_ref('page',$page);
+$smarty->assignByRef('page',$page);
 include($conf['ffw'].'inc/smarties_fast.php');
 include($conf['ffw'].'inc/smarties_cool_form.php');
 
@@ -80,7 +80,7 @@ foreach ($conf['userTable'] as $key => $val) {
 // echo "<pre>";print_r($dbs);exit;
 
 $conf['dsn'] = '';	// le mieux serait de faire un unset sur la clé 'dsn'
-$smarty->assign_by_ref('conf',$conf);
+$smarty->assignByRef('conf',$conf);
 
 
 // we get the user
@@ -98,7 +98,11 @@ if (!function_exists('get_user')) {
 			list($user_id,$cookie_id) = explode('-',$cookie,2);
 			if ($cookie_id) {
 				$get_user = $db->getRow(" -- - look for user
-					select * from $userTable where $idUField=".intval($user_id)." and $cookieUField='$cookie_id'");
+					select *
+					from $userTable
+					where $idUField=".intval($user_id)."
+						and $cookieUField='$cookie_id'
+						and is_active=1");
 				if ($get_user) $user = $get_user + $user;
 				// update last_ip in user table (if field exists)
 				if ($dbs[$userTable]['LAST_IP'])
@@ -114,7 +118,7 @@ if (!function_exists('get_user')) {
 	}
 }
 $user = get_user();
-$smarty->assign_by_ref('user',$user);
+$smarty->assignByRef('user',$user);
 
 
 // if url is /wiki/toto AND default_module = wiki, we redirect to /toto (so ONE page does not have TWO urls)
