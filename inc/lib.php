@@ -552,14 +552,14 @@ function load_mod($module,$action) {
 
 // cette fonction affiche un tableau associatif dans un tableau html
 function display_array($arr,$arr_name='') {
-	$txt = '<table cellspacing="2" cellpadding="2" border="0">';
+	$txt = '<table cellspacing="2" cellpadding="2" border="0" style="font:11px tahoma;">';
 	if ($arr_name) $txt .= "<tr><th colspan='2'>$arr_name</th></tr>";
-	$txt .= '<tr><th>key</th><th>val</th></tr>';
+	$txt .= "<tr><th style='background:#F9C;'>key</th><th style='background:#DDD;'>val</th></tr>";
 	foreach ($arr as $k => $v) {
 		$txt .= "
 			<tr>
-				<td><strong>$k</strong></td>
-				<td>$v</td>
+				<td style='background:#F9C;'><strong>$k</strong></td>
+				<td style='background:#DDD;'>$v</td>
 			</tr>
 			";
 	}
