@@ -164,13 +164,15 @@ class db {
 			if (is_array($arr)) {
 				foreach ($arr as $key => $val) {
 					// to prevent SQL injections
-					$val = str_replace("`","\`", mysql_real_escape_string($val));
+					if (is_string($val))
+						$val = str_replace("`","\`", mysql_real_escape_string($val));
 					$sql = str_replace(":$key:", "'$val'", $sql);
 				}
 			} else {
 				// if we have something else, we replace all ? by $arr
 				// to prevent SQL injections
-				$arr = str_replace("`","\`", mysql_real_escape_string($arr));
+				if (is_string($val))
+					$arr = str_replace("`","\`", mysql_real_escape_string($arr));
 				$sql = str_replace("?", "$arr", $sql);
 			}
 		}
