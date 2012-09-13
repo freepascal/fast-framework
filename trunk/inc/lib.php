@@ -616,4 +616,18 @@ function str_arr_replace($string, $arr) {
 	return $string;
 }
 
+
+// password hash function: defined here so the algorythm is easy to replace
 function pwd_hash($pwd) { return sha1($pwd); }
+
+
+// filter that displays euros nicely
+// 26.2658 => 26<small>,27</small>&nbsp;€
+function euros($dec) {
+	$str = number_format($dec,2,',',' ');
+	$str = str_replace(' ','&nbsp;',$str);
+	$str = str_replace(',','<small>,',$str).'</small>&nbsp;€';
+	return $str;
+}
+
+
