@@ -53,15 +53,8 @@ $page = array(
 	'reload' => $_GET['reload']
 );
 
-
 // open db connection
 $db = new db($conf['dsn']);
-
-
-//require $conf['adodb'];
-//$db = NewADOConnection($conf['dsn']);
-//if ($_GET['debug'] OR $_POST['debug']) $db->debug = true;
-//$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 
 // we load the database structure
 $dbs = $db->dbs;
@@ -70,18 +63,15 @@ $dbs = $db->dbs;
 if (!$conf['userTable'])
 	$conf['userTable'] = Spyc::YAMLLoad($conf['ffw'].'default_user.yml');
 
-// create global vars
+// create global vars so we can now use $loginUField instead of $conf['userTable']['loginUField']
 foreach ($conf['userTable'] as $key => $val) {
 	global ${$key};
 	${$key} = $val;
 	$smarty->assign($key,$val);
 }
 
-// echo "<pre>";print_r($dbs);exit;
-
-$conf['dsn'] = '';	// le mieux serait de faire un unset sur la clé 'dsn'
+$conf['dsn'] = '';	// we won't need that info any more now we are connecte to the db
 $smarty->assignByRef('conf',$conf);
-
 
 // we get the user
 if (!function_exists('get_user')) {
@@ -91,7 +81,7 @@ if (!function_exists('get_user')) {
 		$user['ip'] 		= getenv('REMOTE_ADDR');
 		$user['hostname'] 	= getenv('REMOTE_HOST');
 		$user['browser']	= getenv('HTTP_USER_AGENT');
-		// if connexion cookie -> get user in user table
+		// if the is a connexion cookie we get user in user table
 		global $db,$conf,$userTable,$idUField,$cookieUField,$dbs;
 		if ($_COOKIE[$cookieUField]) {
 			$cookie = $_COOKIE[$cookieUField];
@@ -120,7 +110,6 @@ if (!function_exists('get_user')) {
 $user = get_user();
 $smarty->assignByRef('user',$user);
 
-
 // if url is /wiki/toto AND default_module = wiki, we redirect to /toto (so ONE page does not have TWO urls)
 /*
 if (($module==$conf['default_module']) and ($_SERVER["REQUEST_URI"]!='/')) {
@@ -128,7 +117,6 @@ if (($module==$conf['default_module']) and ($_SERVER["REQUEST_URI"]!='/')) {
 	exit;
 }
 */
-
 
 // hook to execute before module (good to insert site wide scripts)
 if ($conf['hook_pre_module'])
@@ -222,8 +210,6 @@ if (!$page['template']) {
 	}
 }
 $smarty->display('file:'.$page['template']);
-
-//echo "<pre>";print_r($dbs);
 
 /* for self updates
 // if update.php is older than today, we get the new version from the web
