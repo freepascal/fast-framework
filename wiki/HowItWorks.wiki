@@ -4,7 +4,7 @@
 
   # download the framework in /FFW/
   # download some libs in /libphp/ :
-    * Smarty (not Smarty 3 yet)
+    * Smarty
     * spyc
     * PHPMailer
   # download some javascript libs in /libjs/ :
